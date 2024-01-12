@@ -1,3 +1,4 @@
 ./build
 ./cmake_example.egg-info
 ./post_module.egg-info
+.venv
