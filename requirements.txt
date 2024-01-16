@@ -1,0 +1,2 @@
+-i https://pkgs.dev.azure.com/divesph/dive-public/_packaging/dive-registry/pypi/simple/
+dive-nemo
