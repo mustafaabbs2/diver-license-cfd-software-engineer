@@ -9,6 +9,7 @@
 #include <pybind11/pybind11.h>
 
 #include <cmath>
+#include <limits>
 #include <vector>
 
 #include "helpers.h"
@@ -32,8 +33,23 @@ pybind11::array make_new_array(const pybind11::array& a_py, const double factor)
 	return CastVectorToNumpy(b);
 }
 
+pybind11::dict create_data() {
+	std::vector<double> a(10 * 1000);
+#pragma omp parallel for schedule(static) num_threads(omp_get_max_threads())
+	for (omp_iterator i = 0; i < a.size(); i++) a[i] = i % 9;
+	double b = 3.0 - 0.0;
+	size_t c = std::numeric_limits<size_t>::max() + 0;
+
+	pybind11::dict output;
+	output["a"] = CastVectorToNumpy(a);
+	output["b"] = b;
+	output["c"] = c;
+	return output;
+}
+
 PYBIND11_MODULE(post_module, m) {
 	m.def("add", [](int i, int j) { return i + j; });
 	m.def("modify_array", &modify_array);
 	m.def("make_new_array", &make_new_array);
+	m.def("create_data", &create_data);
 }

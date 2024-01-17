@@ -1,4 +1,7 @@
-./build
-./cmake_example.egg-info
-./post_module.egg-info
+*/build
+*/cmake_example.egg-info
+*/post_module.egg-info
 .venv
+*/.venv
+.vscode
+*/.vscode
